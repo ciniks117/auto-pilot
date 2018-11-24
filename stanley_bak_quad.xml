@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sspaceex xmlns="http://www-verimag.imag.fr/xml-namespaces/sspaceex" version="0.2" math="SpaceEx">
+  <component id="plant">
+    <param name="spnext" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" />
+    <param name="spcur" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" />
+    <param name="a" type="real" local="false" d1="1" d2="1" dynamics="any" placement="east" controlled="false" />
+    <param name="v" type="real" local="false" d1="1" d2="1" dynamics="any" placement="east" controlled="false" />
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" placement="east" controlled="false" />
+    <param name="update_setpoint" type="label" local="false" />
+    <param name="has_arrived" type="label" local="false" />
+    <location id="1" name="cahover" x="720.0" y="85.0" width="186.0" height="106.0">
+      <flow>spnext'==0 &amp; spcur'==0</flow>
+    </location>
+    <location id="2" name="cawait" x="706.0" y="590.0" width="214.0" height="112.0">
+      <flow>spnext'==0 &amp; spcur'==0</flow>
+    </location>
+    <location id="3" name="error" x="170.0" y="298.0" width="160.0" height="104.0">
+      <flow>spnext'==0 &amp; spcur'==0</flow>
+    </location>
+    <transition source="1" target="3">
+      <guard>x&gt;=spcur+1.5 &amp;&amp; x&gt;=spnext+1.5</guard>
+      <labelposition x="-85.0" y="-82.0" width="230.0" height="86.0" />
+      <middlepoint x="281.5" y="126.5" />
+    </transition>
+    <transition source="1" target="3">
+      <guard>x&lt;=spcur-1.5 &amp;&amp; x&lt;=spnext-1.5</guard>
+      <labelposition x="-94.0" y="6.0" width="220.0" height="64.0" />
+    </transition>
+    <transition source="2" target="3">
+      <guard>x&gt;=spcur+1.5 &amp;&amp; x&gt;=spnext+1.5</guard>
+      <labelposition x="-42.0" y="24.0" width="224.0" height="76.0" />
+      <middlepoint x="194.5" y="542.5" />
+    </transition>
+    <transition source="2" target="3">
+      <guard>x&lt;=spcur-1.5 &amp;&amp; x&lt;=spnext-1.5</guard>
+      <labelposition x="-177.0" y="-10.0" width="212.0" height="80.0" />
+    </transition>
+    <transition source="1" target="2">
+      <label>update_setpoint</label>
+      <assignment>spnext=spcur-5</assignment>
+      <labelposition x="28.0" y="-21.0" width="122.0" height="72.0" />
+      <middlepoint x="777.5" y="325.0" />
+    </transition>
+    <transition source="1" target="2">
+      <label>update_setpoint</label>
+      <assignment>spnext=spcur+5</assignment>
+      <labelposition x="-134.0" y="-28.0" width="130.0" height="66.0" />
+      <middlepoint x="642.5" y="326.0" />
+    </transition>
+    <transition source="2" target="1">
+      <label>has_arrived</label>
+      <guard>-0.1&lt;=x-spnext&lt;=0.1 &amp;&amp;
+-0.1&lt;=v&lt;=0.1 &amp;&amp;
+-0.1&lt;=a&lt;=0.1</guard>
+      <assignment>x=x-spnext &amp;&amp;
+spnext=0 &amp;&amp;
+spcur=0</assignment>
+      <labelposition x="9.0" y="-247.0" width="176.0" height="138.0" />
+      <middlepoint x="978.5" y="500.0" />
+      <waypoints>
+        <aftermiddle>978.0,197.0</aftermiddle>
+      </waypoints>
+    </transition>
+  </component>
+  <component id="controller">
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="v" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="a" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="clock" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="update_setpoint" type="label" local="false" />
+    <param name="spnext" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <location id="1" name="urgent" x="322.0" y="207.0" width="212.0" height="144.0">
+      <invariant>clock&lt;=0.0001</invariant>
+      <flow>clock'==1 &amp;&amp;
+x'==0 &amp;&amp;
+v'==0 &amp;&amp;
+a'==0</flow>
+    </location>
+    <location id="2" name="flying" x="857.0" y="208.0" width="198.0" height="142.0">
+      <flow>x'==v &amp;&amp;
+v'==a &amp;&amp;
+a'==-10*v-3*a &amp;&amp;
+clock'==0</flow>
+    </location>
+    <transition source="2" target="1">
+      <label>update_setpoint</label>
+      <assignment>clock=0</assignment>
+      <labelposition x="-71.0" y="-69.0" width="146.0" height="66.0" />
+      <middlepoint x="586.5" y="150.5" />
+    </transition>
+    <transition source="1" target="2">
+      <assignment>a=10*spnext-10*x-3*v 
+&amp;&amp; clock=0</assignment>
+      <labelposition x="-26.0" y="21.0" width="170.0" height="90.0" />
+      <middlepoint x="596.5" y="269.5" />
+    </transition>
+  </component>
+  <component id="sys1">
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="745.0" y="308.0" />
+    <param name="v" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="706.0" y="309.0" />
+    <param name="a" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="668.0" y="311.0" />
+    <param name="spnext" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="416.0" y="347.0" />
+    <param name="spcur" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="393.0" y="463.0" />
+    <param name="update_setpoint" type="label" local="false" x="290.0" y="347.0" />
+    <param name="has_arrived" type="label" local="false" x="380.0" y="560.0" />
+    <bind component="controller" as="controller_1" x="546.0" y="216.0">
+      <map key="x">x</map>
+      <map key="v">v</map>
+      <map key="a">a</map>
+      <map key="spnext">spnext</map>
+      <map key="update_setpoint">update_setpoint</map>
+    </bind>
+    <bind component="plant" as="plant_1" x="531.0" y="495.0" width="100.0" height="124.0">
+      <map key="spnext">spnext</map>
+      <map key="spcur">spcur</map>
+      <map key="x">x</map>
+      <map key="v">v</map>
+      <map key="a">a</map>
+      <map key="update_setpoint">update_setpoint</map>
+      <map key="has_arrived">has_arrived</map>
+    </bind>
+  </component>
+</sspaceex>
+
