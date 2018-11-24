@@ -1,0 +1,50 @@
+ad_2d.xml --verbosity d7 -o quad_2d.intv
+00:00:00.000 Processing options
+00:00:00.000 Checking options
+00:00:00.000 Applying options
+00:00:00.001 
+Read file quad_2d.xml, defined automata sys1copy.
+00:00:00.002 Corrected flowpipe error to e_rel=0,e_abs=0.125 in order to make clustering feasible for intersection error e_rel=0,e_abs=1
+00:00:00.002 Set flowpipe error to e_rel=0,e_abs=0.125, intersection error to e_rel=0,e_abs=1
+00:00:00.002 Adapting system to scenario
+00:00:00.002 Defining initial states
+00:00:00.003 Computing reachable states... 
+00:00:00.003 Iteration 0... 
+00:00:00.003 
+time elapse in true
+00:02:40.065 1 sym states passed, 0 waiting 
+00:02:40.065 Iteration 0 done after 160.063s
+00:02:40.065 Found fixpoint after 1 iterations.
+00:02:40.065 Computing reachable states done after 160.063s, cumul 160.063s
+00:02:40.065 Output of reachable states... 4.40101s, cumul 4.40101s
+00:02:44.487 Done.
+00:02:44.487 
+Cumulative time spent:
+  160.063 s,  98%,      1 x Computing reachable states
+  160.063 s,  98%,      1 x Continuous post with continuous_post_stc
+  159.562 s,  98%,     32 x computing support evolutions
+  147.737 s,  90%,     32 x computing evolution of nonautonomous dynamics
+    4.402 s,   3%,      1 x Output of reachable states
+    4.400 s,   3%,      2 x computing outer polyhedra
+    4.222 s,   3%,     32 x superposing
+    3.566 s,   3%,     64 x linear interpolation
+    0.113 s,   1%,     78 x Computing matrix exponential
+    0.102 s,   1%,     78 x Calculating matrix exponential not in cache
+    0.010 s,   1%,     32 x computing evolution of autonomous dynamics
+    0.006 s,   1%,      1 x restricting to maybe satisfying prefix
+    0.004 s,   1%,    807 x Solving LP with glpk
+    0.000 s,   0%,      2 x DAE to ODE conversion for locations
+    0.000 s,   0%,      2 x Removing redundant polyhedron constraints
+    0.000 s,   0%,     10 x Redundancy testing for single constraint
+    0.000 s,   0%,      2 x computing cut points
+00:02:44.487 
+Hierarchical Profile:
+ 98% Computing reachable states (1x, 98% of global)
+   |--100% Continuous post with continuous_post_stc (1x, 98% of global)
+   |   |--100% computing support evolutions (31x, 98% of global)
+   |   |   |-- 93% computing evolution of nonautonomous dynamics (31x, 90% of global)
+   |   |   |--  3% superposing (31x, 3% of global)
+   |   |   |   |-- 85% linear interpolation (62x, 3% of global)
+   |   |   |--  5% ... (5% of global)
+  3% Output of reachable states (1x, 3% of global)
+   |--100% computing outer polyhedra (2x, 3% of global)

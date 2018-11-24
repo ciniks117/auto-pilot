@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sspaceex xmlns="http://www-verimag.imag.fr/xml-namespaces/sspaceex" version="0.2" math="SpaceEx">
+  <component id="clock">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <location id="1" name="loc1" x="427.0" y="176.0">
+      <invariant>t&lt;=5</invariant>
+      <flow>t'==1</flow>
+    </location>
+  </component>
+  <component id="diff">
+    <param name="In1" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <param name="In2" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <param name="Out1" type="real" local="false" d1="1" d2="1" dynamics="any" placement="east" controlled="false" />
+    <location id="1" name="loc1" x="584.0" y="220.0" width="122.0" height="60.0">
+      <invariant>Out1== In1- In2</invariant>
+    </location>
+  </component>
+  <component id="reference">
+    <param name="const" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="ref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="east" />
+    <location id="1" name="loc1" x="431.0" y="197.0">
+      <invariant>ref==const</invariant>
+    </location>
+  </component>
+  <component id="control">
+    <param name="e" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="west" />
+    <param name="u" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="east" />
+    <param name="Kp" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="m" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="g" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <location id="1" name="loc1" x="339.0" y="191.0">
+      <invariant>u==m*Kp*e+m*g</invariant>
+    </location>
+  </component>
+  <component id="plant">
+    <param name="x1" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x2" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x3" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="x4" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x5" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x6" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="x7" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="x8" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x9" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x10" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x11" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x12" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="x13" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="u" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="m" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="g" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <location id="1" name="loc1" x="588.0" y="345.0" width="346.0" height="406.0">
+      <flow>x1'==0 &amp;
+x2'==0 &amp;
+x3'==x6 &amp;
+x4'==0 &amp;
+x5'==0 &amp;
+x6'== u/m-g &amp;
+x7'==1&amp;
+x8'==0 &amp;
+x9'==0 &amp;
+x10'==0 &amp;
+x11'==0 &amp;
+x12'==0 &amp;
+x13'== 0</flow>
+    </location>
+  </component>
+  <component id="monitor">
+    <param name="z" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <location id="1" name="loc1" x="351.0" y="223.0">
+      <invariant>z&lt;=1.05</invariant>
+    </location>
+    <location id="2" name="error" x="563.0" y="223.0" />
+    <transition source="1" target="2">
+      <guard>z&gt;=1.05</guard>
+      <labelposition x="-36.0" y="-52.0" width="76.0" height="50.0" />
+    </transition>
+  </component>
+  <component id="sys1">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="332.0" y="51.0" />
+    <param name="z_des" type="real" local="true" d1="1" d2="1" dynamics="any" controlled="false" x="239.0" y="136.0" />
+    <param name="z" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="315.0" y="344.0" />
+    <param name="error" type="real" local="true" d1="1" d2="1" dynamics="any" controlled="false" x="497.0" y="182.0" />
+    <param name="u" type="real" local="true" d1="1" d2="1" dynamics="any" controlled="false" x="761.0" y="185.0" />
+    <param name="zd" type="real" local="true" d1="1" d2="1" dynamics="any" controlled="true" x="970.0" y="197.0" />
+    <param name="x7" type="real" local="true" d1="1" d2="1" dynamics="any" controlled="true" x="973.0" y="218.0" />
+    <bind component="clock" as="clock_1" x="219.0" y="51.0">
+      <map key="t">t</map>
+    </bind>
+    <bind component="reference" as="reference_1" x="184.0" y="184.0">
+      <map key="const">1</map>
+      <map key="ref">z_des</map>
+    </bind>
+    <bind component="diff" as="diff_1" x="404.0" y="198.0" width="72.0" height="54.0">
+      <map key="In1">z_des</map>
+      <map key="In2">z</map>
+      <map key="Out1">error</map>
+    </bind>
+    <bind component="control" as="control_1" x="633.0" y="199.0">
+      <map key="e">error</map>
+      <map key="u">u</map>
+      <map key="Kp">100</map>
+      <map key="m">0.18</map>
+      <map key="g">9.81</map>
+    </bind>
+    <bind component="plant" as="plant_1" x="912.0" y="197.0" width="54.0" height="66.0">
+      <map key="x3">
+        z
+        <link>1042.0,315.0</link>
+      </map>
+      <map key="x6">zd</map>
+      <map key="u">u</map>
+      <map key="m">0.17</map>
+      <map key="g">9.81</map>
+      <map key="x7">x7</map>
+    </bind>
+  </component>
+  <component id="sys_with_monitor">
+    <param name="z" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="311.0" y="256.0" />
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <bind component="monitor" as="monitor_1" x="381.0" y="270.0">
+      <map key="z">z</map>
+    </bind>
+    <bind component="sys1" as="sys1_1" x="224.0" y="254.0">
+      <map key="t">t</map>
+      <map key="z">z</map>
+    </bind>
+  </component>
+</sspaceex>
+

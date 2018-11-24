@@ -1,0 +1,74 @@
+System could not be loaded because of the following parser error.
+
+[clock]
+
+Controlled = t
+
+Locations = loc1
+
+Default-Ini = "t==0 & loc()==loc1"
+
+[diff]
+
+Uncontrolled = In1,In2,Out1
+
+Locations = loc1
+
+Default-Ini = "In1==0 & In2==0 & Out1==0 & loc()==loc1"
+
+[reference]
+
+Uncontrolled = y_des,z_des
+
+Constant-Dynamics = const1,const2
+
+Locations = loc1
+
+Default-Ini = "const1==0 & y_des==0 & z_des==0 & const2==0 & loc()==loc1"
+
+[control]
+
+Uncontrolled = u1,u2,y_des,z_des,x2,x3,x8
+
+Constant-Dynamics = Kpz,m,g,Ixx,Kpp,Kpy
+
+Locations = loc1
+
+Default-Ini = "u1==0 & Kpz==0 & m==0 & g==0 & u2==0 & y_des==0 & z_des==0 & x2==0 & x3==0 & Ixx==0 & Kpp==0 & x8==0 & Kpy==0 & loc()==loc1"
+
+[plant]
+
+Controlled = x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13
+
+Uncontrolled = u1,u2
+
+Constant-Dynamics = m,g,Ixx
+
+Locations = loc1
+
+Default-Ini = "x1==0 & x2==0 & x3==0 & x4==0 & x5==0 & x6==0 & x7==0 & x8==0 & x9==0 & x10==0 & x11==0 & x12==0 & x13==0 & u1==0 & m==0 & g==0 & Ixx==0 & u2==0 & loc()==loc1"
+
+[monitor]
+
+Controlled = z
+
+Locations = loc1,error
+
+Default-Ini = "z==0 & loc()==loc1"
+
+[sys1]
+
+Controlled = t,x2,x3,x8,x1,x4,x5,x6,x7,x9,x10,x11,x12,x13
+
+Uncontrolled = y_des,z_des,u,u2
+
+Base-components = clock_1,reference_1,control_1,plant_1
+
+Default-Ini = "t==0 & y_des==0 & z_des==0 & u==0 & u2==0 & x2==0 & x3==0 & x8==0 & x1==0 & x4==0 & x5==0 & x6==0 & x7==0 & x9==0 & x10==0 & x11==0 & x12==0 & x13==0"
+
+[sys_with_monitor]
+
+/home/notroot/./spaceex_exe/spaceex: line 3: 26715 Segmentation fault LD_LIBRARY_PATH=$script_dir/lib:$LD_LIBRARY_PATH $script_dir/bin/sspaceex "$@"
+Reports
+Graphics
+

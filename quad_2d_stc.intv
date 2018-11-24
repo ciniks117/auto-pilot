@@ -1,0 +1,29 @@
+
+Bounds on the variables over the entire set:
+sys1copy.t: [-0,3.63575]
+sys1copy.x2: [-4.52929e+09,0.599751]
+sys1copy.x3: [0.93633,1.11292]
+sys1copy.u1_val: [1.58293,1.74489]
+sys1copy.u2_val: [-6.33936e+07,25.7143]
+sys1copy.z_des: [neg_infty,pos_infty]
+sys1copy.y_des: [neg_infty,pos_infty]
+sys1copy.x5: [-2.44225e+10,4.43994]
+sys1copy.x6: [-0.202688,0.0901526]
+sys1copy.x8: [-1.3424e+10,22.7252]
+sys1copy.x12: [-7.23842e+10,8428.68]
+
+Location-wise bounds on the variables:
+
+Location: true
+sys1copy.t: [-0,3.63575]
+sys1copy.x2: [-4.52929e+09,0.599751]
+sys1copy.x3: [0.93633,1.11292]
+sys1copy.u1_val: [1.58293,1.74489]
+sys1copy.u2_val: [-6.33936e+07,25.7143]
+sys1copy.z_des: [neg_infty,pos_infty]
+sys1copy.y_des: [neg_infty,pos_infty]
+sys1copy.x5: [-2.44225e+10,4.43994]
+sys1copy.x6: [-0.202688,0.0901526]
+sys1copy.x8: [-1.3424e+10,22.7252]
+sys1copy.x12: [-7.23842e+10,8428.68]
+

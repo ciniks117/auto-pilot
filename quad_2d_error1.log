@@ -1,0 +1,65 @@
+
+
+00:00:00.000 Processing options
+
+00:00:00.000 Checking options
+
+00:00:00.000 Applying options
+
+00:00:00.001 Corrected flowpipe error to e_rel=0,e_abs=0.125 in order to make clustering feasible for intersection error e_rel=0,e_abs=1
+
+00:00:00.001 Set flowpipe error to e_rel=0,e_abs=0.125, intersection error to e_rel=0,e_abs=1
+
+00:00:00.001 Corrected flowpipe error to e_rel=0,e_abs=0.125 in order to make clustering feasible for intersection error e_rel=0,e_abs=1
+
+00:00:00.001 Set flowpipe error to e_rel=0,e_abs=0.125, intersection error to e_rel=0,e_abs=1
+
+00:00:00.002
+
+Read file phpLfzHTS.xml, defined automata sys1.
+
+00:00:00.002 Corrected flowpipe error to e_rel=0,e_abs=0.125 in order to make clustering feasible for intersection error e_rel=0,e_abs=1
+
+00:00:00.002 Set flowpipe error to e_rel=0,e_abs=0.125, intersection error to e_rel=0,e_abs=1
+
+00:00:00.002 Adapting system to scenario
+
+00:00:00.003 Defining initial states
+
+00:00:00.005 Computing reachable states...
+
+00:00:00.005 Iteration 0...
+
+00:00:00.005
+
+time elapse in true
+
+00:00:00.005 Continuous post with continuous_post_stc...
+
+00:00:00.005 computing support_function_time_elapse
+
+00:00:00.005 reduced time horizon to 5
+
+00:00:00.005 time elapse for affine dynamics
+
+00:00:00.006 intersecting flowpipe with invariant
+
+00:00:00.006 restricting to maybe satisfying prefix... 0.004s, cumul 0.004s
+
+00:00:00.010 adding user template directions for 14 state variables
+
+/home/notroot/./spaceex_exe/spaceex: line 3: 27235 Killed LD_LIBRARY_PATH=$script_dir/lib:$LD_LIBRARY_PATH $script_dir/bin/sspaceex "$@"
+
+Exit [137]
+
+graph: identical upper and lower x limits are separated
+
+graph: identical upper and lower y limits are separated
+
+graph: identical upper and lower x limits are separated
+
+graph: identical upper and lower y limits are separated
+
+graph: identical upper and lower x limits are separated
+
+graph: identical upper and lower y limits are separated
