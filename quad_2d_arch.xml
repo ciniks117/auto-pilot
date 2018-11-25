@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sspaceex xmlns="http://www-verimag.imag.fr/xml-namespaces/sspaceex" version="0.2" math="SpaceEx">
+  <component id="clock">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <location id="1" name="loc1" x="427.0" y="176.0">
+      <invariant>t&lt;=5</invariant>
+      <flow>t'==1</flow>
+    </location>
+  </component>
+  <component id="reference">
+    <param name="const1" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x_des" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="east" />
+    <param name="z_des" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="east" />
+    <param name="const2" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <location id="1" name="loc1" x="434.0" y="241.0" width="218.0" height="136.0">
+      <invariant>x_des==const1 &amp;
+z_des==const2</invariant>
+    </location>
+  </component>
+  <component id="control">
+    <param name="u1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="east" />
+    <param name="Kpz" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="m" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="g" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="u2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="east" />
+    <param name="x_des" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <param name="z_des" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <param name="z" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" placement="west" />
+    <param name="Ixx" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Kpp" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="theta" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" controlled="false" />
+    <param name="Kpx" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="u3" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <location id="1" name="loc1" x="480.0" y="245.0" width="404.0" height="272.0">
+      <invariant>u1==Kpz*(z_des - z) &amp;&amp;
+u2==(1/g)*Kpx*(x_des - x) &amp;&amp;
+u3==Kpp*(u2 - theta)</invariant>
+    </location>
+  </component>
+  <component id="plant">
+    <param name="xd" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="z" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="zd" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="theta" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="omega" type="real" local="true" d1="1" d2="1" dynamics="any" />
+    <param name="u1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="g" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Ixx" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="u2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="u3" type="real" local="false" d1="1" d2="1" dynamics="any" placement="west" />
+    <location id="1" name="loc1" x="588.0" y="345.0" width="346.0" height="406.0">
+      <flow>x'==xd &amp;
+xd'==g*theta &amp;
+z'==zd &amp;
+zd'==u1 &amp;
+theta'==omega &amp;&amp;
+omega'==u3</flow>
+    </location>
+  </component>
+  <component id="sys1">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="332.0" y="51.0" />
+    <param name="z_des" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" x="252.0" y="231.0" />
+    <param name="u1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" x="728.0" y="159.0" />
+    <param name="u2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" x="730.0" y="244.0" />
+    <param name="x_des" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" x="319.0" y="128.0" />
+    <param name="z" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="1259.0" y="146.0" />
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="361.0" y="367.0" />
+    <param name="theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="391.0" y="394.0" />
+    <param name="u3" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" x="732.0" y="317.0" />
+    <bind component="clock" as="clock_1" x="219.0" y="51.0">
+      <map key="t">t</map>
+    </bind>
+    <bind component="reference" as="reference_1" x="176.0" y="182.0" width="78.0" height="52.0">
+      <map key="const1">1</map>
+      <map key="x_des">x_des</map>
+      <map key="z_des">z_des</map>
+      <map key="const2">1</map>
+    </bind>
+    <bind component="control" as="control_1" x="493.0" y="222.0" width="128.0" height="170.0">
+      <map key="u1">u1</map>
+      <map key="Kpz">30</map>
+      <map key="m">0.17</map>
+      <map key="g">9.81</map>
+      <map key="u2">u2</map>
+      <map key="x_des">x_des</map>
+      <map key="z_des">z_des</map>
+      <map key="z">
+        z
+        <link>318.0,646.0,1328.0,166.0</link>
+      </map>
+      <map key="x">x</map>
+      <map key="Ixx">0.0025</map>
+      <map key="Kpp">1000</map>
+      <map key="theta">theta</map>
+      <map key="Kpx">10</map>
+      <map key="u3">
+        u3
+        <link>658.0,278.0</link>
+      </map>
+    </bind>
+    <bind component="plant" as="plant_1" x="990.0" y="226.0" width="144.0" height="166.0">
+      <map key="z">z</map>
+      <map key="theta">
+        theta
+        <link>1161.0,500.0</link>
+      </map>
+      <map key="u1">u1</map>
+      <map key="g">9.81</map>
+      <map key="Ixx">0.0025</map>
+      <map key="u2">u2</map>
+      <map key="x">
+        x
+        <link>1209.0,561.0</link>
+      </map>
+      <map key="u3">u3</map>
+    </bind>
+  </component>
+</sspaceex>
+
