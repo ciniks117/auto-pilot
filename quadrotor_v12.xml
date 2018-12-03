@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sspaceex xmlns="http://www-verimag.imag.fr/xml-namespaces/sspaceex" version="0.2" math="SpaceEx">
+  <component id="angular_rates_controller">
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="p_I" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q_I" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="r_I" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="K_I_p" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="K_I_q" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="K_I_r" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="K_f_p" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="K_f_q" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="K_f_r" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="p_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="false" />
+    <param name="q_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="false" />
+    <param name="r_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="false" />
+    <location id="1" name="run" x="455.0" y="147.0" width="312.0" height="148.0">
+      <invariant>tau_phi == - K_I_p * p_I - K_f_p * p &amp; 
+tau_theta == - K_I_q * q_I - K_f_q * q &amp; 
+tau_psi == - K_I_r * r_I - K_f_r * r</invariant>
+      <flow>p_I' == p - p_r &amp; 
+q_I' == q - q_r &amp; 
+r_I' == r - r_r</flow>
+    </location>
+  </component>
+  <component id="MC1">
+    <param name="x1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="w12" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x1L" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x1U" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x2L" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x2U" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <location id="1" name="poly" x="333.0" y="133.0" width="356.0" height="206.0">
+      <invariant>w12 &lt;= x1L * x2 + x2U * x1 - x1L * x2U &amp; 
+w12 &lt;= x1U * x2 + x2L * x1 - x1U * x2L &amp;
+w12 &gt;= x1L * x2 + x2L * x1 - x1L * x2L &amp; 
+w12 &gt;= x1U * x2 + x2U * x1 - x1U * x2U &amp; 
+x1 &gt;= x1L &amp; 
+x1 &lt;= x1U &amp; 
+x2 &gt;= x2L &amp; 
+x2 &lt;= x2U</invariant>
+    </location>
+  </component>
+  <component id="rotation_dynamics">
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="Jx" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Jy" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Jz" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="B1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B3" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <location id="1" name="run" x="300.0" y="74.0" width="288.0" height="108.0">
+      <flow>p' == tau_phi / Jx + ( (Jy - Jz) / Jx ) * B1 &amp; 
+q' == tau_theta / Jy + ( (Jz - Jx) / Jy ) * B2 &amp; 
+r' == tau_psi / Jz + ( (Jx - Jy) / Jz ) * B3</flow>
+    </location>
+  </component>
+  <component id="monitor_clock">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="T" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="tick" type="label" local="true" />
+    <location id="1" name="run" x="226.0" y="108.0">
+      <invariant>t &lt;= T</invariant>
+      <flow>t' == 1</flow>
+    </location>
+    <transition source="1" target="1">
+      <label>tick</label>
+      <guard>t == T</guard>
+      <assignment>t := t - T</assignment>
+      <labelposition x="37.0" y="-32.0" width="96.0" height="62.0" />
+    </transition>
+  </component>
+  <component id="monitor_variable">
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="x" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tick" type="label" local="true" />
+    <param name="bad1" type="label" local="true" />
+    <param name="bad2" type="label" local="true" />
+    <param name="bad3" type="label" local="true" />
+    <param name="bad4" type="label" local="true" />
+    <param name="T" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x_min" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x_max" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <location id="1" name="run" x="308.0" y="104.0">
+      <invariant>t &lt;= T</invariant>
+      <flow>t' == 1</flow>
+    </location>
+    <location id="2" name="continue" x="307.0" y="365.0">
+      <invariant>t &lt;= T</invariant>
+      <flow>t' == 1</flow>
+    </location>
+    <location id="3" name="error" x="599.0" y="99.0">
+      <invariant>t &lt;= T</invariant>
+      <flow>t' == 0</flow>
+    </location>
+    <transition source="1" target="3">
+      <label>bad1</label>
+      <guard>t == T &amp; 
+x &lt; x_min</guard>
+      <labelposition x="-57.0" y="-64.0" width="96.0" height="66.0" />
+      <middlepoint x="452.0" y="78.5" />
+    </transition>
+    <transition source="1" target="2">
+      <label>tick</label>
+      <guard>t == T &amp; 
+x &gt;= x_min &amp;
+x &lt;= x_max</guard>
+      <assignment>t := t - T</assignment>
+      <labelposition x="-132.0" y="-38.0" width="172.0" height="94.0" />
+    </transition>
+    <transition source="2" target="2">
+      <label>tick</label>
+      <guard>t == T</guard>
+      <assignment>t := t - T</assignment>
+      <labelposition x="-85.0" y="-28.0" width="78.0" height="70.0" />
+      <middlepoint x="-88.0" y="-7.0" />
+    </transition>
+    <transition source="1" target="3">
+      <label>bad2</label>
+      <guard>t == T &amp;
+x &gt; x_max</guard>
+      <labelposition x="-73.0" y="0.0" width="82.0" height="76.0" />
+      <middlepoint x="455.0" y="129.5" />
+    </transition>
+    <transition source="2" target="3">
+      <label>bad3</label>
+      <guard>x &lt; x_min</guard>
+      <labelposition x="-26.0" y="3.0" width="88.0" height="50.0" />
+    </transition>
+    <transition source="2" target="3">
+      <label>bad4</label>
+      <guard>x &gt; x_max</guard>
+      <labelposition x="-7.0" y="9.0" width="96.0" height="50.0" />
+      <middlepoint x="513.5" y="287.0" />
+    </transition>
+  </component>
+  <component id="MC4">
+    <param name="w12" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x1M" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x2M" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="x1U" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x2U" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x1L" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="x2L" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="eps" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="dx1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="dx2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <location id="1" name="poly1" x="910.0" y="122.0" width="430.0" height="200.0">
+      <invariant>x1M == (x1U + x1L) / 2 &amp; 
+x2M == (x2U + x2L) / 2 &amp; 
+w12 &lt;= (x1M - eps) * x2 + x2U * x1 -(x1M - eps) * x2U &amp; 
+w12 &lt;= x1U * x2 + (x2M - eps) * x1 - x1U * (x2M - eps) &amp;
+w12 &gt;= (x1M - eps) * x2 + (x2M - eps) * x1 - (x1M - eps) * (x2M - eps) &amp; 
+w12 &gt;= x1U * x2 + x2U * x1 - x1U * x2U &amp;
+x1 &gt;= x1M - eps &amp; 
+x1 &lt;= x1U &amp; 
+x2 &gt;= x2M - eps &amp; 
+x2 &lt;= x2U</invariant>
+    </location>
+    <location id="2" name="poly2" x="352.0" y="123.0" width="408.0" height="202.0">
+      <invariant>x1M == (x1U + x1L) / 2 &amp; 
+x2M == (x2U + x2L) / 2 &amp; 
+w12 &lt;= x1L * x2 + x2U * x1 - x1L * x2U &amp; 
+w12 &lt;= x1M * x2 + (x2M - eps) * x1 - x1M * (x2M - eps) &amp;
+w12 &gt;= x1L * x2 + (x2M - eps) * x1 - x1L * (x2M - eps) &amp; 
+w12 &gt;= x1M * x2 + x2U * x1 - x1M * x2U &amp;
+x1 &gt;= x1L &amp; 
+x1 &lt;= x1M &amp; 
+x2 &gt;= x2M - eps &amp; 
+x2 &lt;= x2U</invariant>
+    </location>
+    <location id="3" name="poly4" x="904.0" y="427.0" width="422.0" height="232.0">
+      <invariant>x1M == (x1U + x1L) / 2 &amp; 
+x2M == (x2U + x2L) / 2 &amp; 
+w12 &lt;= (x1M - eps) * x2 + x2M * x1 - (x1M - eps) * x2M &amp; 
+w12 &lt;= x1U * x2 + x2L * x1 - x1U * x2L &amp;
+w12 &gt;= (x1M - eps) * x2 + x2L * x1 - (x1M - eps) * x2L &amp; 
+w12 &gt;= x1U * x2 + x2M * x1 - x1U * x2M &amp;
+x1 &gt;= x1M  - eps &amp; 
+x1 &lt;= x1U &amp; 
+x2 &gt;= x2L &amp; 
+x2 &lt;= x2M</invariant>
+    </location>
+    <location id="4" name="poly3" x="332.0" y="423.0" width="402.0" height="208.0">
+      <invariant>x1M == (x1U + x1L) / 2 &amp; 
+x2M == (x2U + x2L) / 2 &amp; 
+w12 &lt;= x1L * x2 + x2M * x1 - x1L * x2M &amp; 
+w12 &lt;= x1M * x2 + x2L * x1 - x1M * x2L &amp;
+w12 &gt;= x1L * x2 + x2L * x1 - x1L * x2L &amp; 
+w12 &gt;= x1M * x2 + x2M * x1 - x1M * x2M &amp;
+x1 &gt;= x1L &amp; 
+x1 &lt;= x1M &amp; 
+x2 &gt;= x2L &amp; 
+x2 &lt;= x2M</invariant>
+    </location>
+    <transition source="2" target="1">
+      <guard>x1 == x1M &amp; 
+dx1 &gt;= 0</guard>
+      <labelposition x="-55.0" y="-7.0" width="120.0" height="76.0" />
+      <middlepoint x="625.0" y="170.5" />
+    </transition>
+    <transition source="1" target="2">
+      <guard>x1 == x1M - eps &amp; 
+dx1 &lt; 0</guard>
+      <labelposition x="-63.0" y="-64.0" width="136.0" height="64.0" />
+      <middlepoint x="624.0" y="86.5" />
+    </transition>
+    <transition source="2" target="4">
+      <guard>x2 == x2M - eps &amp; 
+dx2 &lt; 0</guard>
+      <labelposition x="-122.0" y="-58.0" width="126.0" height="100.0" />
+      <middlepoint x="267.5" y="270.5" />
+    </transition>
+    <transition source="4" target="2">
+      <guard>x2 == x2M &amp; 
+dx2 &gt;= 0</guard>
+      <labelposition x="2.0" y="-44.0" width="116.0" height="72.0" />
+      <middlepoint x="416.5" y="276.5" />
+    </transition>
+    <transition source="4" target="3">
+      <guard>x1 == x1M &amp; 
+dx1 &gt;= 0</guard>
+      <labelposition x="-56.0" y="-18.0" width="116.0" height="88.0" />
+      <middlepoint x="619.0" y="431.5" />
+    </transition>
+    <transition source="3" target="4">
+      <guard>x1 == x1M - eps &amp; 
+dx1 &lt; 0</guard>
+      <labelposition x="-66.0" y="-68.0" width="138.0" height="76.0" />
+      <middlepoint x="622.0" y="343.5" />
+    </transition>
+    <transition source="1" target="3">
+      <guard>x2 == x2M - eps &amp; 
+dx2 &lt; 0</guard>
+      <labelposition x="-148.0" y="-32.0" width="182.0" height="74.0" />
+      <middlepoint x="847.5" y="252.5" />
+    </transition>
+    <transition source="3" target="1">
+      <guard>x2 == x2M &amp; 
+dx2 &gt;= 0</guard>
+      <labelposition x="-11.0" y="-43.0" width="138.0" height="70.0" />
+      <middlepoint x="990.5" y="265.5" />
+    </transition>
+  </component>
+  <component id="rotation_dynamics_derivatives">
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="Jx" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Jy" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Jz" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="B1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B3" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="dp" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="dq" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="dr" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <location id="1" name="run" x="321.0" y="170.0" width="310.0" height="212.0">
+      <invariant>dp == tau_phi / Jx + ( (Jy - Jz) / Jx ) * B1 &amp; 
+dq == tau_theta / Jy + ( (Jz - Jx) / Jy ) * B2 &amp; 
+dr == tau_psi / Jz + ( (Jx - Jy) / Jz ) * B3</invariant>
+    </location>
+  </component>
+  <component id="angular_rates_MC1">
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B3" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="p_I" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q_I" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="r_I" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="K_I_p" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_I_q" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_I_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_f_p" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_f_q" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_f_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <bind component="rotation_dynamics" as="rotation_dynamics_nonlinear_1" x="510.0" y="124.0" width="216.0" height="234.0">
+      <map key="p">p</map>
+      <map key="q">q</map>
+      <map key="r">r</map>
+      <map key="tau_phi">tau_phi</map>
+      <map key="tau_theta">tau_theta</map>
+      <map key="tau_psi">tau_psi</map>
+      <map key="Jx">9.0359e-6</map>
+      <map key="Jy">9.1268e-6</map>
+      <map key="Jz">1.9368e-5</map>
+      <map key="B1">B1</map>
+      <map key="B2">B2</map>
+      <map key="B3">B3</map>
+    </bind>
+    <bind component="MC1" as="McCormick_1" x="515.0" y="305.0" width="218.0" height="74.0">
+      <map key="x1L">-1</map>
+      <map key="x1U">1</map>
+      <map key="x2L">-1</map>
+      <map key="x2U">1</map>
+      <map key="x1">q</map>
+      <map key="x2">r</map>
+      <map key="w12">B1</map>
+    </bind>
+    <bind component="MC1" as="McCormick_2" x="515.0" y="405.0" width="218.0" height="72.0">
+      <map key="x1L">-1</map>
+      <map key="x1U">1</map>
+      <map key="x2L">-1</map>
+      <map key="x2U">1</map>
+      <map key="x1">p</map>
+      <map key="x2">r</map>
+      <map key="w12">B2</map>
+    </bind>
+    <bind component="MC1" as="McCormick_3" x="515.0" y="506.0" width="218.0" height="74.0">
+      <map key="x1L">-1</map>
+      <map key="x1U">1</map>
+      <map key="x2L">-1</map>
+      <map key="x2U">1</map>
+      <map key="x1">p</map>
+      <map key="x2">q</map>
+      <map key="w12">B3</map>
+    </bind>
+    <bind component="monitor_variable" as="monitor_variable_1" x="514.0" y="854.0" width="210.0" height="72.0">
+      <map key="t">t</map>
+      <map key="x">p</map>
+      <map key="T">1</map>
+      <map key="x_min">-0.3</map>
+      <map key="x_max">0.3</map>
+    </bind>
+    <bind component="angular_rates_controller" as="angular_rates_controller_1" x="512.0" y="676.0" width="212.0" height="196.0">
+      <map key="tau_phi">tau_phi</map>
+      <map key="tau_theta">tau_theta</map>
+      <map key="tau_psi">tau_psi</map>
+      <map key="p_I">p_I</map>
+      <map key="q_I">q_I</map>
+      <map key="r_I">r_I</map>
+      <map key="p">p</map>
+      <map key="q">q</map>
+      <map key="r">r</map>
+      <map key="K_I_p">3.6144e-3</map>
+      <map key="K_I_q">3.6507e-3</map>
+      <map key="K_I_r">7.7472e-3</map>
+      <map key="K_f_p">2.5557e-4</map>
+      <map key="K_f_q">2.5814e-4</map>
+      <map key="K_f_r">5.4781e-4</map>
+      <map key="p_r">0</map>
+      <map key="q_r">0</map>
+      <map key="r_r">0</map>
+    </bind>
+  </component>
+  <component id="angular_rates_MC4">
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="B3" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="dp" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="dq" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="dr" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="p_I" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q_I" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="r_I" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="K_I_p" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_I_q" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_I_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_f_p" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_f_q" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="K_f_r" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <bind component="rotation_dynamics" as="rotation_dynamics_nonlinear_1" x="391.0" y="126.0" width="144.0" height="220.0">
+      <map key="p">p</map>
+      <map key="q">q</map>
+      <map key="r">r</map>
+      <map key="tau_phi">tau_phi</map>
+      <map key="tau_theta">tau_theta</map>
+      <map key="tau_psi">tau_psi</map>
+      <map key="Jx">9.0359e-6</map>
+      <map key="Jy">9.1268e-6</map>
+      <map key="Jz">1.9368e-5</map>
+      <map key="B1">B1</map>
+      <map key="B2">B2</map>
+      <map key="B3">B3</map>
+    </bind>
+    <bind component="monitor_variable" as="monitor_variable_1" x="391.0" y="1170.0" width="154.0" height="66.0">
+      <map key="t">t</map>
+      <map key="x">p</map>
+      <map key="T">1</map>
+      <map key="x_min">-0.3</map>
+      <map key="x_max">0.3</map>
+    </bind>
+    <bind component="rotation_dynamics_derivatives" as="rotation_dynamics_derivatives_1" x="390.0" y="362.0" width="146.0" height="194.0">
+      <map key="p">p</map>
+      <map key="q">q</map>
+      <map key="r">r</map>
+      <map key="tau_phi">tau_phi</map>
+      <map key="tau_theta">tau_theta</map>
+      <map key="tau_psi">tau_psi</map>
+      <map key="Jx">9.0359e-6</map>
+      <map key="Jy">9.1268e-6</map>
+      <map key="Jz">1.9368e-5</map>
+      <map key="B1">B1</map>
+      <map key="B2">B2</map>
+      <map key="B3">B3</map>
+      <map key="dp">dp</map>
+      <map key="dq">dq</map>
+      <map key="dr">dr</map>
+    </bind>
+    <bind component="MC4" as="MC4_1" x="390.0" y="535.0" width="150.0" height="100.0">
+      <map key="w12">B1</map>
+      <map key="x1">q</map>
+      <map key="x2">r</map>
+      <map key="x1M">0</map>
+      <map key="x2M">0</map>
+      <map key="x1U">1</map>
+      <map key="x2U">1</map>
+      <map key="x1L">-1</map>
+      <map key="x2L">-1</map>
+      <map key="eps">0.1</map>
+      <map key="dx1">dq</map>
+      <map key="dx2">dr</map>
+    </bind>
+    <bind component="MC4" as="MC4_2" x="388.0" y="659.0" width="144.0" height="104.0">
+      <map key="w12">B2</map>
+      <map key="x1">p</map>
+      <map key="x2">r</map>
+      <map key="x1M">0</map>
+      <map key="x2M">0</map>
+      <map key="x1U">1</map>
+      <map key="x2U">1</map>
+      <map key="x1L">-1</map>
+      <map key="x2L">-1</map>
+      <map key="eps">0.1</map>
+      <map key="dx1">dp</map>
+      <map key="dx2">dr</map>
+    </bind>
+    <bind component="MC4" as="MC4_3" x="387.0" y="790.0" width="144.0" height="98.0">
+      <map key="w12">B3</map>
+      <map key="x1">p</map>
+      <map key="x2">q</map>
+      <map key="x1M">0</map>
+      <map key="x2M">0</map>
+      <map key="x1U">1</map>
+      <map key="x2U">1</map>
+      <map key="x1L">-1</map>
+      <map key="x2L">-1</map>
+      <map key="eps">0.1</map>
+      <map key="dx1">dp</map>
+      <map key="dx2">dq</map>
+    </bind>
+    <bind component="angular_rates_controller" as="angular_rates_controller_1" x="390.0" y="982.0" width="142.0" height="212.0">
+      <map key="tau_phi">tau_phi</map>
+      <map key="tau_theta">tau_theta</map>
+      <map key="tau_psi">tau_psi</map>
+      <map key="p_I">p_I</map>
+      <map key="q_I">q_I</map>
+      <map key="r_I">r_I</map>
+      <map key="p">p</map>
+      <map key="q">q</map>
+      <map key="r">r</map>
+      <map key="K_I_p">3.6144e-3</map>
+      <map key="K_I_q">3.6507e-3</map>
+      <map key="K_I_r">7.7472e-3</map>
+      <map key="K_f_p">2.5557e-4</map>
+      <map key="K_f_q">2.5814e-4</map>
+      <map key="K_f_r">5.4781e-4</map>
+      <map key="p_r">0</map>
+      <map key="q_r">0</map>
+      <map key="r_r">0</map>
+    </bind>
+  </component>
+</sspaceex>
+
