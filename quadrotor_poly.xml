@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<sspaceex xmlns="http://www-verimag.imag.fr/xml-namespaces/sspaceex" version="0.2" math="SpaceEx">
+  <component id="quad">
+    <param name="pn" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="pe" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="h" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="u" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="v" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="w" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q0" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q1" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q2" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q3" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="Jx" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Jy" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Jz" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="F" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="m" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="Kip" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Kfp" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Kiq" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Kfq" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Kir" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="Kfr" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <param name="pi" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="qi" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="ri" type="real" local="false" d1="1" d2="1" dynamics="any" />
+    <param name="pref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="qref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="rref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="g" type="real" local="false" d1="1" d2="1" dynamics="const" />
+    <location id="1" name="loc1" x="508.0" y="379.0" width="648.0" height="610.0">
+      <invariant>tau_phi==-Kip*pi - Kfp*p &amp;&amp;
+tau_theta==-Kiq*qi - Kfq*q &amp;&amp;
+tau_psi==-Kir*ri - Kfr*r &amp;&amp;
+pref==0 &amp;&amp;
+qref==0 &amp;&amp;
+rref==1</invariant>
+      <flow>t'==1 &amp;&amp;
+pn'==u*(2*q0*q0+2*q1*q1-1) - v*(2*q0*q3-2*q1*q2) + w*(2*q0*q2+2*q1*q3)  &amp;&amp;
+pe'==v*(2*q0*q0+2*q2*q2-1) + u*(2*q0*q3+2*q1*q2) - w*(2*q0*q1-2*q2*q3) &amp;&amp;
+h'==w*(2*q0*q0+2*q3*q3-1) - u*(2*q0*q2-2*q1*q3) + v*(2*q0*q1+2*q2*q3) &amp;&amp;
+u'==r*v - q*w - g*(2*q0*q2-2*q1*q3) &amp;&amp;
+v'==p*w - r*u + g*(2*q0*q1+2*q2*q3) &amp;&amp;
+w'==q*u - p*v - F/m + g*(2*q0*q0+2*q3*q3-1) &amp;&amp;
+q0'==-q1*p/2 - q2*q/2 - q3*r/2 &amp;&amp;
+q1'==q0*p/2 - q3*q/2 + q2*r/2 &amp;&amp;
+q2'==q3*p/2 + q0*q/2 - q1*r/2 &amp;&amp;
+q3'==q1*q/2 - q2*p/2 + q0*r/2 &amp;&amp;
+p'==tau_phi/Jx + q*r*(Jy-Jz)/Jx &amp;&amp;
+q'==tau_theta/Jy + p*r*(Jx-Jz)/Jy &amp;&amp;
+r'==tau_psi/Jz + p*q*(Jx-Jy)/Jz &amp;&amp;
+pi'==p - pref &amp;&amp;
+qi'==q - qref &amp;&amp;
+ri'==r - rref</flow>
+    </location>
+  </component>
+  <component id="quad_timed">
+    <param name="pn" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="pe" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="h" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="u" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="v" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="w" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q0" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q2" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q3" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="p" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="q" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="r" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="Jx" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="Jy" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="Jz" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="F" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="m" type="real" local="false" d1="1" d2="1" dynamics="const" controlled="true" />
+    <param name="tau_phi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="tau_theta" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="tau_psi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="t" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="pi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="qi" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="ri" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <param name="pref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="qref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="rref" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="false" />
+    <param name="ri1" type="real" local="false" d1="1" d2="1" dynamics="any" controlled="true" />
+    <bind component="quad" as="quad_1" x="546.0" y="323.0" width="172.0" height="402.0">
+      <map key="pn">pn</map>
+      <map key="pe">pe</map>
+      <map key="h">h</map>
+      <map key="u">u</map>
+      <map key="v">v</map>
+      <map key="w">w</map>
+      <map key="q0">q0</map>
+      <map key="q1">q1</map>
+      <map key="q2">q2</map>
+      <map key="q3">q3</map>
+      <map key="p">p</map>
+      <map key="q">q</map>
+      <map key="r">r</map>
+      <map key="Jx">0.054</map>
+      <map key="Jy">0.054</map>
+      <map key="Jz">0.104</map>
+      <map key="F">13.73</map>
+      <map key="m">1.4</map>
+      <map key="tau_phi">tau_phi</map>
+      <map key="tau_theta">tau_theta</map>
+      <map key="tau_psi">tau_psi</map>
+      <map key="t">t</map>
+      <map key="Kip">3.61e-3</map>
+      <map key="Kfp">2.55e-4</map>
+      <map key="Kiq">3.65e-3</map>
+      <map key="Kfq">2.58e-4</map>
+      <map key="Kir">7.74e-3</map>
+      <map key="Kfr">5.48e-4</map>
+      <map key="pi">pi</map>
+      <map key="qi">qi</map>
+      <map key="ri">ri1</map>
+      <map key="pref">pref</map>
+      <map key="qref">qref</map>
+      <map key="rref">rref</map>
+      <map key="g">9.81</map>
+    </bind>
+  </component>
+</sspaceex>
+
